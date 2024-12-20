@@ -1,0 +1,20 @@
+.footer-component{
+    width: 100%;
+    background-color: #86141b;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+}
+.footer-component-in{
+    width: 98%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.footer-component-in p{
+    font-size: 1rem;
+    font-weight: 400;
+
+}
