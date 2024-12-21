@@ -58,7 +58,8 @@ const ForgotPassword = () => {
             toast.success("Password reset link sent to your email");
             setFormData({ empNumber: "", email: "", captcha: "" });
             generateCaptcha();
-        } catch (error) {
+        } catch (err) {
+            console.error('Error:', err);
             toast.error("Failed to process your request. Please try again.");
         }
     };

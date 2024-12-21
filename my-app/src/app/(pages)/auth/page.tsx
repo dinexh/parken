@@ -82,8 +82,8 @@ export default function AuthPage() {
       </div>
       <div className="auth__right">
         <div className="welcome-content">
-          <h1>Parking Management System</h1>
-          <p>Welcome to KLEF's Department of Electronics & Computer Science Engineering (EL&GE) Parking Management Portal. This system provides efficient parking space management and vehicle tracking for our campus community.</p>
+          <h1>Welcome to KL&apos;s Parking Management</h1>
+          <p>Welcome to KLEF&apos;s Department of Experimental Learning and Global Exploration (ELGE) Parking Management Portal. This system provides efficient parking space management and vehicle tracking for our campus community.</p>
         </div>
       </div>
     </div>
