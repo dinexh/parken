@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Footer from "./components/footer/footer";
+import { toast } from "react-hot-toast";
 
 export default function Home() {
   const [num1, setNum1] = useState(0);
@@ -18,9 +19,10 @@ export default function Home() {
     e.preventDefault();
     if (parseInt(captchaInput) === num1 + num2) {
       setErrorMessage("");
-      alert("Login Successful!");
+      toast.success("Login Successful!");
     } else {
       setErrorMessage("Incorrect Captcha. Try again.");
+      toast.error("Incorrect Captcha. Please try again.");
       setNum1(Math.floor(Math.random() * 10) + 1);
       setNum2(Math.floor(Math.random() * 10) + 1);
       setCaptchaInput("");
@@ -66,9 +68,6 @@ export default function Home() {
                 required
               />
             </div>
-            {errorMessage && (
-              <p style={{ color: "red", marginTop: "5px" }}>{errorMessage}</p>
-            )}
             <div className="form-group-login-button">
               <button type="submit">Login</button>
             </div>

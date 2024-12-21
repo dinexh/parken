@@ -1,20 +1,22 @@
 .footer-component{
     width: 100%;
-    background-color: #86141b;
-    color: white;
+    background-color: black;
+    color: #ffffff;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 1rem;
+    padding: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 .footer-component-in{
     width: 98%;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
 }
 .footer-component-in p{
-    font-size: 1rem;
+    font-size: 0.9rem;
     font-weight: 400;
-
+    margin: 0;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
 }

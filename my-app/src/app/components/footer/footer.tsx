@@ -8,8 +8,7 @@ export default function Footer() {
     return(
     <div className="footer-component">
         <div className="footer-component-in">
-            <p>&copy;{currentYear()} all Rights Resevered by KLEF Deemed To Be University | Department of ELGE</p>
-            <p>Developed by 2300030350 - Dinesh Korukonda</p>
+            <p>&copy;{currentYear()} all Rights Resevered by KLEF Deemed To Be University | Department of EL&GE</p>
         </div>
     </div>
     // </footer>
