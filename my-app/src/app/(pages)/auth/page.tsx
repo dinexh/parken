@@ -4,29 +4,40 @@ import { toast } from 'react-hot-toast';
 import './page.css';
 import Logo from '../../Assets/kllogo.png';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 export default function AuthPage() {
-  const [num1, setNum1] = useState(0);
-  const [num2, setNum2] = useState(0);
-  const [captchaInput, setCaptchaInput] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
+  const router = useRouter();
+  const [letter1, setLetter1] = useState('');
+  const [letter2, setLetter2] = useState('');
+  const [captchaInput, setCaptchaInput] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const generateRandomLetter = () => {
+    const alphabet = 'abcdefghijklmnopqrstuvwxyz';
+    return alphabet[Math.floor(Math.random() * alphabet.length)];
+  };
+
+  const handleForgotPassword = () => {
+    router.push('/forgotpassword');
+  };
 
   useEffect(() => {
-    setNum1(Math.floor(Math.random() * 10) + 1);
-    setNum2(Math.floor(Math.random() * 10) + 1);
+    setLetter1(generateRandomLetter());
+    setLetter2(generateRandomLetter());
   }, []);
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (parseInt(captchaInput) === num1 + num2) {
-      setErrorMessage("");
-      toast.success("Login Successful!");
+    if (captchaInput.toLowerCase() === letter1 + letter2) {
+      setErrorMessage('');
+      toast.success('Login Successful!');
     } else {
-      setErrorMessage("Incorrect verification. Try again.");
-      toast.error("Incorrect verification. Please try again.");
-      setNum1(Math.floor(Math.random() * 10) + 1);
-      setNum2(Math.floor(Math.random() * 10) + 1);
-      setCaptchaInput("");
+      setErrorMessage('Incorrect verification. Try again.');
+      toast.error('Incorrect verification. Please try again.');
+      setLetter1(generateRandomLetter());
+      setLetter2(generateRandomLetter());
+      setCaptchaInput('');
     }
   }
 
@@ -58,12 +69,13 @@ export default function AuthPage() {
           <div className="form__captcha">
             <label className="form__label">Captcha:</label>
             <div className="captcha-container">
-              <div className="captcha-question">{num1} - {num2}</div>
+              <div className="captcha-question">{letter1} {letter2}</div>
               <input
-                type="number"
+                type="text"
                 className="form__input captcha-input"
                 value={captchaInput}
                 onChange={(e) => setCaptchaInput(e.target.value)}
+                maxLength={2}
                 required
               />
             </div>
@@ -71,12 +83,7 @@ export default function AuthPage() {
           </div>
           <button type="submit" className="form__submit">Proceed to Login</button>
           <div className="form__forgot">
-            <a href="#" className="form__forgot-text">Forgot your password?</a>
-          </div>
-          <div className="form__terms">
-            This site utilizes third party services to protect against spam and abuse. By continuing, you agree to the 
-            <a href="#" className="terms-link">Privacy Policy</a> and 
-            <a href="#" className="terms-link">Terms of Service</a> of Google reCAPTCHA.
+            <a onClick={handleForgotPassword} className="form__forgot-text">Forgot your password?</a>
           </div>
         </form>
       </div>
