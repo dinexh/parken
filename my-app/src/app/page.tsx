@@ -157,7 +157,7 @@ export default function Home() {
               <button type="submit">Login</button>
             </div>
             <div className="form-group">
-              <Link href="/forgot-password" className="forgot-password-link">
+              <Link href="/auth/forgotpassword" className="forgot-password-link">
                 Forgot Password?
               </Link>
             </div>

@@ -1,52 +1,60 @@
-import * as dotenv from 'dotenv';
-import path from 'path';
-
-// Load environment variables from .env.local
-dotenv.config({ path: path.resolve(process.cwd(), '.env.local') });
-
+import './loadEnv';
+import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
-import dbConnect from '../utils/dbConnect';
 import User from '../models/User';
+import dbConnect from '../utils/dbConnect';
+
+const adminUsers = [
+  {
+    empId: '2300030350',
+    email: '2300030350@kluniversity.in',
+    password: 'admin123',
+    role: 'admin'
+  },
+  {
+    empId: '2300033004',
+    email: '2300033004@kluniversity.in',
+    password: 'superadmin123',
+    role: 'superadmin'
+  }
+];
 
 async function createAdminUsers() {
   try {
     await dbConnect();
+    console.log('Connected to database');
 
-    const adminUsers = [
-      {
-        empId: "1000",
-        password: "admin123",
-        role: "admin"
-      },
-      {
-        empId: "2000",
-        password: "superadmin123",
-        role: "superadmin"
-      }
-    ];
-
-    for (const user of adminUsers) {
-      const hashedPassword = await bcrypt.hash(user.password, 10);
-      
+    for (const admin of adminUsers) {
       // Check if user already exists
-      const existingUser = await User.findOne({ empId: user.empId });
-      
+      const existingUser = await User.findOne({ 
+        $or: [
+          { empId: admin.empId },
+          { email: admin.email }
+        ]
+      });
+
       if (existingUser) {
-        console.log(`User with empId ${user.empId} already exists`);
+        console.log(`User with empId ${admin.empId} or email ${admin.email} already exists`);
         continue;
       }
 
+      // Hash password
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(admin.password, salt);
+
       // Create new user
-      await User.create({
-        empId: user.empId,
+      const user = new User({
+        empId: admin.empId,
+        email: admin.email,
         password: hashedPassword,
-        role: user.role
+        role: admin.role
       });
 
-      console.log(`Created ${user.role} user with empId: ${user.empId}`);
+      await user.save();
+      console.log(`Created ${admin.role} user with empId ${admin.empId}`);
     }
 
-    console.log('Admin users created successfully');
+    console.log('Admin users creation completed');
     process.exit(0);
   } catch (error) {
     console.error('Error creating admin users:', error);

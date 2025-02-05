@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "create-admins": "npx ts-node src/scripts/createAdminUsers.ts"
+    "create-admin": "NODE_PATH=. ts-node ./src/scripts/createAdminUsers.ts",
+    "clear-users": "NODE_PATH=. ts-node ./src/scripts/clearAllUsers.ts"
   },
   "dependencies": {
     "@types/bcryptjs": "^2.4.6",
@@ -17,13 +18,14 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.9.7",
     "next": "15.1.6",
+    "nodemailer": "^6.10.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-icons": "^5.4.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
-    "@types/node": "^20",
+    "@types/node": "^20.17.17",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",

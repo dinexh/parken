@@ -1,57 +1,79 @@
 "use client";
-import { useState } from "react";
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import '../auth.css';
 
 export default function ForgotPassword() {
-  const [empId, setEmpId] = useState('');
+  const [email, setEmail] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState('');
+  const [error, setError] = useState('');
+  const router = useRouter();
 
-  // Validation for numbers only
-  const handleEmpIdChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    if (value === '' || /^[0-9\b]+$/.test(value)) {
-      setEmpId(value);
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError('');
+    setMessage('');
+
+    try {
+      const response = await fetch('/api/auth/forgot-password', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setMessage(data.message);
+        // Redirect to reset password page after 2 seconds
+        setTimeout(() => {
+          router.push(`/auth/resetpassword?email=${encodeURIComponent(email)}`);
+        }, 2000);
+      } else {
+        setError(data.message);
+      }
+    } catch (error) {
+      setError('An error occurred. Please try again.');
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-  <div className="home-component">
-    <div className="home-component-in">
-      <div className="home-component-in-one">
-        <div className="home-component-in-one-in">
-          <div className="home-component-in-one-in-heading">
-            <h1>Forgot Password</h1>
-            <p className="auth-subtitle">Enter your EMP/ERP ID to reset password</p>
+    <div className="auth-container">
+      <div className="auth-box">
+        <h1>Forgot Password</h1>
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="email">Email Address</label>
+            <input
+              type="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Enter your email address"
+              required
+            />
           </div>
-          <form action="">
-            <div className="form-group">
-              <label htmlFor="empId">EMP / ERP ID Number</label>
-              <input 
-                type="text" 
-                id="empId"
-                value={empId}
-                onChange={handleEmpIdChange}
-                placeholder="Enter your ID number"
-                maxLength={10}
-                required
-              />
-            </div>
-            <div className="form-group">
-              <button type="submit">Send Reset Link</button>
-            </div>
-            <div className="form-group">
-              <Link href="/" className="back-to-login">
-                Back to Login
-              </Link>
-            </div>
-          </form>
-        </div>
-      </div>
-      <div className="home-component-in-two">
-        <h1>Smart Parking System</h1>
-        <h2>Department of Experimental Learning and Global Exploration</h2>
-        <h4>KLEF (Deemed to be University)</h4>
+          {error && <div className="error-message">{error}</div>}
+          {message && <div className="success-message">{message}</div>}
+          <div className="form-group">
+            <button type="submit" disabled={loading}>
+              {loading ? 'Sending...' : 'Send Reset Instructions'}
+            </button>
+          </div>
+          <div className="form-group">
+            <Link href="/" className="back-to-login">
+              Back to Login
+            </Link>
+          </div>
+        </form>
       </div>
     </div>
-  </div>
   );
 } 
