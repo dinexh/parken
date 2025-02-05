@@ -2,10 +2,11 @@ import { NextResponse } from 'next/server';
 import jwt from 'jsonwebtoken';
 import dbConnect from '@/utils/dbConnect';
 import User from '@/models/User';
+import { cookies } from 'next/headers';
 
 export async function GET(req: Request) {
   try {
-    const token = req.cookies.get('token')?.value;
+    const token = (await cookies()).get('token')?.value;
 
     if (!token) {
       return NextResponse.json(

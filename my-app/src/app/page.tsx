@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { FaEye, FaEyeSlash, FaSync } from "react-icons/fa";
 import Link from 'next/link';
+import { useRouter } from "next/navigation";
 
 export default function Home() {
   const [isLogin, setIsLogin] = useState(true);
@@ -10,6 +11,7 @@ export default function Home() {
   const [captcha, setCaptcha] = useState('');
   const [userCaptcha, setUserCaptcha] = useState('');
   const [captchaError, setCaptchaError] = useState(false);
+  const router = useRouter();
 
   // Generate random 6-digit number for captcha
   const generateCaptcha = () => {
@@ -55,16 +57,30 @@ export default function Home() {
       });
 
       const data = await response.json();
+      console.log('Login response:', data);
 
-      if (response.ok) {
-        // Redirect to dashboard or home page after successful login
-        window.location.href = '/dashboard';
+      if (!data.user) {
+        console.error('No user data in response:', data);
+        alert('Login successful but user data is missing. Please contact support.');
+        return;
+      }
+
+      if (response.ok && data.user) {
+        console.log('User role:', data.user.role);
+        if (data.user.role === 'admin') {
+          router.replace('/dashboard/admin');
+        } else if (data.user.role === 'superadmin') {
+          router.replace('/dashboard/superadmin');
+        } else {
+          alert('Invalid user role');
+        }
       } else {
-        alert(data.message || 'Login failed');
+        console.log('Login failed:', data);
+        alert(data.message || 'Login failed. Please check your credentials.');
       }
     } catch (error) {
       console.error('Login error:', error);
-      alert('An error occurred during login');
+      alert('An error occurred during login. Please try again.');
     }
   };
 

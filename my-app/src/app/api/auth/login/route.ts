@@ -35,9 +35,20 @@ export async function POST(req: Request) {
       { expiresIn: '1d' }
     );
 
-    // Set JWT token in HTTP-only cookie
+    // Create user object without sensitive data
+    const userResponse = {
+      empId: user.empId,
+      role: user.role,
+      name: user.name // if you have this field
+      // Add other non-sensitive user fields you want to send
+    };
+
+    // Set JWT token in HTTP-only cookie and return user data
     const response = NextResponse.json(
-      { message: 'Login successful' },
+      { 
+        message: 'Login successful',
+        user: userResponse
+      },
       { status: 200 }
     );
     
