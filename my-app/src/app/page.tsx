@@ -125,32 +125,35 @@ export default function Home() {
                 </button>
               </div>
             </div>
-            <div className="form-group">
-              <label htmlFor="captcha">Verification Code</label>
+            <div className="form-group captcha-group">
+              <label htmlFor="captcha">Security Check</label>
               <div className="captcha-container">
-                <div className="captcha-display">
-                  <span>{captcha}</span>
+                <div className="captcha-box">
+                  <span className="captcha-text">{captcha}</span>
                   <button 
                     type="button" 
-                    className="refresh-captcha"
+                    className="captcha-refresh"
                     onClick={generateCaptcha}
                     aria-label="Refresh Captcha"
                   >
-                    <FaSync size={20} />
+                    <FaSync />
                   </button>
                 </div>
-                <input 
-                  type="text" 
-                  id="captcha"
-                  value={userCaptcha}
-                  onChange={(e) => setUserCaptcha(e.target.value)}
-                  placeholder="Enter the code above"
-                  required
-                  maxLength={6}
-                />
-                {captchaError && (
-                  <span className="captcha-error">Invalid verification code</span>
-                )}
+                <div className="captcha-input-group">
+                  <input 
+                    type="text" 
+                    id="captcha"
+                    value={userCaptcha}
+                    onChange={(e) => setUserCaptcha(e.target.value)}
+                    placeholder="Enter code"
+                    required
+                    maxLength={6}
+                    className={captchaError ? 'error' : ''}
+                  />
+                  {captchaError && (
+                    <span className="error-message">Invalid code</span>
+                  )}
+                </div>
               </div>
             </div>
             <div className="form-group">
