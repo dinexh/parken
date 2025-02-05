@@ -165,6 +165,17 @@ export default function Home() {
               </Link>
             </div>
           </form>
+          <div className="footer">
+            <div className="footer-links">
+              <Link href="/maintenance/terms">Terms & Conditions</Link>
+              <span className="footer-divider">•</span>
+              <Link href="/maintenance/privacy">Privacy Policy</Link>
+            </div>
+            <div className="footer-info">
+              <p>&copy; {new Date().getFullYear()} KLEF (Deemed to be University)</p>
+              <p>Developed by <a href="https://www.dineshkorukonda.in" target="_blank" rel="noopener noreferrer">2300030350 - Dinesh Korukonda</a></p>
+            </div>
+          </div>
         </div>
       </div>
       <div className="home-component-in-two">

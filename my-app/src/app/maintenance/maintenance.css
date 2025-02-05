@@ -1,0 +1,103 @@
+.maintenance-page {
+  min-height: 100vh;
+  padding: 2rem;
+  background: #f8f8f8;
+}
+
+.maintenance-container {
+  max-width: 800px;
+  margin: 0 auto;
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #970003;
+  text-decoration: none;
+  font-weight: 500;
+  margin-bottom: 2rem;
+  transition: color 0.2s ease;
+}
+
+.back-button:hover {
+  color: #7a0002;
+}
+
+h1 {
+  color: #333;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #e1e1e1;
+}
+
+section {
+  margin-bottom: 2rem;
+}
+
+h2 {
+  color: #970003;
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+p {
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+li {
+  color: #666;
+  margin-bottom: 0.5rem;
+  padding-left: 1.5rem;
+  position: relative;
+}
+
+li::before {
+  content: "•";
+  color: #970003;
+  position: absolute;
+  left: 0;
+}
+
+.maintenance-footer {
+  margin-top: 3rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e1e1e1;
+  text-align: center;
+  color: #666;
+  font-size: 0.875rem;
+}
+
+.maintenance-footer p {
+  margin: 0.25rem 0;
+}
+
+@media (max-width: 768px) {
+  .maintenance-page {
+    padding: 1rem;
+  }
+
+  .maintenance-container {
+    padding: 1.5rem;
+  }
+
+  h1 {
+    font-size: 1.75rem;
+  }
+
+  h2 {
+    font-size: 1.15rem;
+  }
+} 
