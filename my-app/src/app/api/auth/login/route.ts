@@ -3,6 +3,9 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import dbConnect from '@/utils/dbConnect';
 import User from '@/models/User';
+import { cookies } from 'next/headers';
+
+const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
 
 export async function POST(req: Request) {
   try {
@@ -28,12 +31,35 @@ export async function POST(req: Request) {
       );
     }
 
-    // Create JWT token
+    // Generate JWT token
     const token = jwt.sign(
-      { userId: user._id },
-      process.env.JWT_SECRET!,
-      { expiresIn: '1d' }
+      { 
+        userId: user._id,
+        empId: user.empId,
+        role: user.role 
+      },
+      JWT_SECRET,
+      { expiresIn: '8h' }
     );
+
+    // Set cookies
+    cookies().set({
+      name: 'authToken',
+      value: token,
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      maxAge: 8 * 60 * 60 // 8 hours
+    });
+
+    cookies().set({
+      name: 'userRole',
+      value: user.role,
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      maxAge: 8 * 60 * 60 // 8 hours
+    });
 
     // Create user object without sensitive data
     const userResponse = {
@@ -43,23 +69,9 @@ export async function POST(req: Request) {
       // Add other non-sensitive user fields you want to send
     };
 
-    // Set JWT token in HTTP-only cookie and return user data
-    const response = NextResponse.json(
-      { 
-        message: 'Login successful',
-        user: userResponse
-      },
-      { status: 200 }
-    );
-    
-    response.cookies.set('token', token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
-      maxAge: 86400 // 1 day in seconds
+    return NextResponse.json({
+      user: userResponse
     });
-
-    return response;
 
   } catch (error) {
     console.error('Login error:', error);

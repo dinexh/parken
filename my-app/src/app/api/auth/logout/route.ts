@@ -1,15 +1,9 @@
 import { NextResponse } from 'next/server';
+import { cookies } from 'next/headers';
 
 export async function POST() {
-  const response = NextResponse.json(
-    { message: 'Logged out successfully' },
-    { status: 200 }
-  );
+  cookies().delete('authToken');
+  cookies().delete('userRole');
   
-  response.cookies.set('token', '', {
-    httpOnly: true,
-    expires: new Date(0),
-  });
-  
-  return response;
+  return NextResponse.json({ message: 'Logged out successfully' });
 } 
