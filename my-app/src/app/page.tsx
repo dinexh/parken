@@ -32,14 +32,40 @@ export default function Home() {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
     if (userCaptcha !== captcha) {
       setCaptchaError(true);
       return;
     }
-    // Add your login logic here
-    console.log('Form submitted successfully');
+
+    try {
+      const password = (document.getElementById('password') as HTMLInputElement).value;
+      
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          empId,
+          password,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        // Redirect to dashboard or home page after successful login
+        window.location.href = '/dashboard';
+      } else {
+        alert(data.message || 'Login failed');
+      }
+    } catch (error) {
+      console.error('Login error:', error);
+      alert('An error occurred during login');
+    }
   };
 
   return (
