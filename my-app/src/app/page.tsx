@@ -173,7 +173,6 @@ export default function Home() {
             </div>
             <div className="footer-info">
               <p>&copy; {new Date().getFullYear()} KLEF (Deemed to be University)</p>
-              <p>Developed by <a href="https://www.dineshkorukonda.in" target="_blank" rel="noopener noreferrer">2300030350 - Dinesh Korukonda</a></p>
             </div>
           </div>
         </div>

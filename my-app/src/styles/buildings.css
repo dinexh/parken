@@ -1,0 +1,193 @@
+.buildings-view {
+  padding: 20px;
+}
+
+.header-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.header-icon {
+  font-size: 1.5rem;
+  color: #970003;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.empty-icon {
+  font-size: 4rem;
+  color: #ddd;
+  margin-bottom: 20px;
+}
+
+.empty-state h3 {
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.empty-state p {
+  color: #666;
+  margin-bottom: 20px;
+}
+
+/* Modal Header */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  color: #666;
+  cursor: pointer;
+  padding: 5px;
+  transition: color 0.3s;
+}
+
+.close-btn:hover {
+  color: #dc3545;
+}
+
+/* Form Buttons */
+.cancel-btn,
+.submit-btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-weight: 500;
+}
+
+.cancel-btn {
+  background-color: #6c757d;
+  color: white;
+}
+
+.submit-btn {
+  background-color: #970003;
+  color: white;
+}
+
+.cancel-btn:hover {
+  background-color: #5a6268;
+}
+
+.submit-btn:hover {
+  background-color: #7a0002;
+}
+
+/* Building Cards */
+.building-card {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+}
+
+.building-card:hover {
+  transform: translateY(-2px);
+}
+
+.building-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.building-header h3 {
+  color: #970003;
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.building-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all 0.3s;
+}
+
+.icon-btn:hover {
+  background-color: #f8f9fa;
+}
+
+.icon-btn.edit {
+  color: #ffc107;
+}
+
+.icon-btn.delete {
+  color: #dc3545;
+}
+
+.icon-btn.edit:hover {
+  background-color: #fff3cd;
+}
+
+.icon-btn.delete:hover {
+  background-color: #f8d7da;
+}
+
+.building-info {
+  color: #666;
+}
+
+.building-info p {
+  margin-bottom: 15px;
+  line-height: 1.5;
+}
+
+.info-item {
+  margin-bottom: 8px;
+  display: flex;
+  gap: 5px;
+}
+
+.info-item strong {
+  color: #333;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .buildings-view {
+    padding: 15px;
+  }
+
+  .building-card {
+    padding: 15px;
+  }
+
+  .building-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .building-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+} 
